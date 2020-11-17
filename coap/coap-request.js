@@ -22,6 +22,8 @@ module.exports = function(RED) {
         node.options.url = n.url;
         node.options.contentFormat = n['content-format'];
         node.options.rawBuffer = n['raw-buffer'];
+        node.options.multicast = n['multicast'];
+        node.options.multicastTimeout = n.multicastTimeout;
 
         function _constructPayload(msg, contentFormat) {
             var payload = null;
@@ -65,6 +67,12 @@ module.exports = function(RED) {
             reqOpts.method = ( node.options.method || msg.method || 'GET' ).toUpperCase();
             reqOpts.headers = {};
             reqOpts.headers['Content-Format'] = node.options.contentFormat;
+            if (node.options.multicast === true || msg.multicastTimeout === true){
+                reqOpts.multicast = '1';
+                reqOpts.multicastTimeout = node.options.multicastTimeout;
+            }else {
+                delete reqOpts.multicast;
+            }
 
             function _onResponse(res) {
 

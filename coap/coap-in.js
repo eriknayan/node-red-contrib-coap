@@ -19,6 +19,10 @@ module.exports = function(RED) {
         node.options.maxLatency = n.maxLatency;
         node.options.piggybackReplyMs = n.piggybackReplyMs;
 
+        // Multicast settings
+        node.options.multicastAddress = n.multicastAddress;
+        node.options.multicastInterface = n.multicastInterface;
+
         node._inputNodes = [];    // collection of "coap in" nodes that represent coap resources
 
         var coapTiming = {
@@ -26,14 +30,17 @@ module.exports = function(RED) {
             ackRandomFactor: parseInt(node.options.ackRandomFactor, 10),
             maxRetransmit: parseInt(node.options.maxRetransmit, 10),
             maxLatency: parseInt(node.options.maxLatency, 10),
-            piggybackReplyMs: parseInt(node.options.piggybackReplyM, 10),
+            piggybackReplyMs: parseInt(node.options.piggybackReplyMs, 10),
 	    sendAcksForNonConfirmablePackets: true,
 	    maxPacketSize: 1280
             };
         coap.updateTiming(coapTiming);
 
         // Setup node-coap server and start
-        node.server = new coap.createServer({ type: 'udp6' });
+        node.server = new coap.createServer({
+            type: 'udp6',
+            multicastAddress: node.options.multicastAddress,
+        });
         node.server.on('request', function(req, res) {
             node.handleRequest(req, res);
             res.on('error', function(err) {

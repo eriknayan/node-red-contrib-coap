@@ -31,6 +31,15 @@
     <input type="text" id="node-config-input-piggybackReplyMs" placeholder="2000"/>
   </div>
 
+  <div class="form-row">
+    <label for="node-config-input-multicastAddress">Multicast Address</label>
+    <input type="text" id="node-config-input-multicastAddress" placeholder="ff05:0:0:0:0:0:0:fd"/>
+  </div>
+  <div class="form-row">
+    <label for="node-config-input-multicastInterface">Multicast Interface</label>
+    <input type="text" id="node-config-input-multicastInterface" placeholder=""/>
+  </div>
+
   <div class="form-tips">
     <i>CoAP</i> is based on <i>UDP</i> so you may need to open a <i>UDP</i> port in your firewall.
   </div>
@@ -51,6 +60,8 @@ RED.nodes.registerType('coap-server',{
     maxRetransmit: {value:5, required:true},
     maxLatency: {value:600, required:true},
     piggybackReplyMs: {value:2000, required:true},
+    multicastAddress: {value:"ff05:0:0:0:0:0:0:fd", required:true},
+    multicastInterface: {value:"", required:false},
   },
   inputs:0,
   outputs:0,

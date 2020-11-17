@@ -13,6 +13,8 @@
             url: {value:""},
             'content-format': {value: "text/plain"},
             'raw-buffer': {value: false, required:true},
+            'multicast': {value: false, required:true},
+            multicastTimeout: {value:2000},
             name: {value:""}
         },
         inputs:1,
@@ -54,6 +56,12 @@
         <label for="node-input-observe" style="width: auto; margin-right: 1em;">Observe?</label>
         <input id="node-input-raw-buffer" type="checkbox" style="display: inline-block; width: auto; vertical-align: top;"/>
         <label for="node-input-raw-buffer" style="width: auto; margin-right: 1em;">Raw buffer?</label>
+        <input id="node-input-multicast" type="checkbox" style="display: inline-block; width: auto; vertical-align: top;"/>
+        <label for="node-input-multicast" style="width: auto; margin-right: 1em;">Multicast?</label>
+    </div>
+    <div class="form-row">
+        <label for="node-input-multicastTimeout">Multicast timeout</label>
+        <input type="text" id="node-input-multicastTimeout" placeholder="2000"/>
     </div>
     <div class="form-row">
         <label for="node-input-content-format"><i class="fa fa-file"></i> Content format</label>
